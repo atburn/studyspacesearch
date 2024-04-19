@@ -15,7 +15,7 @@ CREATE TABLE OWNER(
     room VARCHAR(50),
     owner_id INT(5) NOT NULL,
     type VARCHAR(50) NOT NULL,
-    image VARCHAR(100),
+    image VARCHAR(150) DEFAULT ('https://images.pexels.com/photos/259239/pexels-photo-259239.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'),
     hours VARCHAR(128) NOT NULL,
     PRIMARY KEY(id),
     FOREIGN KEY(owner_id) REFERENCES OWNER(id) ON DELETE NO ACTION ON UPDATE CASCADE
@@ -33,9 +33,10 @@ CREATE TABLE OWNER(
     PRIMARY KEY(id)
 ); CREATE TABLE USER_COMMENT(
     space_id INT(5) NOT NULL,
-    noise INT(1) NOT NULL,
-    availibity INT(1) NOT NULL,
-    user_remark VARCHAR(50) NOT NULL,
+    noise INT(1) NOT NULL DEFAULT (1) CHECK (noise > 0 AND noise < 6),
+    availibity INT(1) NOT NULL DEFAULT (1) CHECK (availibity > 0 AND availibity < 6),
+    busyness INT(1) NOT NULL DEFAULT (1) CHECK (busyness > 0 AND busyness < 6),
+    user_remark VARCHAR(50) NOT NULL CHECK (CHAR_LENGTH(user_remark) > 0 AND CHAR_LENGTH(user_remark) < 51), 
     user_id INT(5),
     FOREIGN KEY(space_id) REFERENCES SPACE(id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY(user_id) REFERENCES `USER`(id) ON DELETE SET NULL ON UPDATE CASCADE
