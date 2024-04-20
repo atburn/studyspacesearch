@@ -22,7 +22,7 @@ CREATE TABLE OWNER(
 ); CREATE TABLE SPACE_RESOURCE(
     space_id INT(5) NOT NULL,
     name VARCHAR(50) NOT NULL,
-    PRIMARY KEY(space_id),
+    PRIMARY KEY(space_id, name),
     FOREIGN KEY(space_id) REFERENCES SPACE(id) ON DELETE CASCADE ON UPDATE CASCADE
 ); CREATE TABLE `USER`(
     id INT(5) NOT NULL,
@@ -38,11 +38,14 @@ CREATE TABLE OWNER(
     busyness INT(1) NOT NULL DEFAULT (1) CHECK (busyness > 0 AND busyness < 6),
     user_remark VARCHAR(50) NOT NULL CHECK (CHAR_LENGTH(user_remark) > 0 AND CHAR_LENGTH(user_remark) < 51), 
     user_id INT(5),
+    timestamp VARCHAR(20),
+    PRIMARY KEY(space_id, user_id, timestamp),
     FOREIGN KEY(space_id) REFERENCES SPACE(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY(user_id) REFERENCES `USER`(id) ON DELETE SET NULL ON UPDATE CASCADE
+    FOREIGN KEY(user_id) REFERENCES `USER`(id) ON DELETE CASCADE ON UPDATE CASCADE
 ); CREATE TABLE SAVED_SPACE(
     user_id INT(5) NOT NULL,
     space_id INT(5) NOT NULL,
+    PRIMARY KEY(user_id, space_id),
     FOREIGN KEY(user_id) REFERENCES `USER`(id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY(space_id) REFERENCES SPACE(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
@@ -97,16 +100,16 @@ INSERT INTO SPACE_RESOURCE VALUES
 (9, 'Whiteboard');
 
 INSERT INTO USER_COMMENT VALUES
-(1, 2, 5, 'pretty nice', 4, '2024-04-11T14:11'),
-(1, 3, 3, '', 8, '2024-04-19T10:46'),
-(4, 1, 5, 'lovely', 5, '2024-03-05T01:32'),
-(8, 4, 3, '', 6, '2024-02-26T13:23'),
-(10, 3, 1, '', 1, '2023-12-15T07:48'),
-(7, 3, 1, '', 7, '2023-05-30T14:34'),
-(1, 2, 1, '', 6, '2024-03-12T09:17'),
-(5, 1, 5, '', 10, '2024-01-20T16:02'),
-(9, 1, 2, '', 9, '2023-01-26T11:30'),
-(2, 3, 5, '', 7, '2024-02-29T12:15');
+(1, 2, 5, 1, 'pretty nice', 4, '2024-04-11T14:11'),
+(1, 3, 3, 2, 'comment', 8, '2024-04-19T10:46'),
+(4, 1, 5, 1, 'lovely', 5, '2024-03-05T01:32'),
+(8, 4, 3, 2, 'it was loud', 6, '2024-02-26T13:23'),
+(10, 3, 1, 4, 'ok', 1, '2023-12-15T07:48'),
+(7, 3, 1, 5,'someone else was there', 7, '2023-05-30T14:34'),
+(1, 2, 1, 3, 'no comment', 6, '2024-03-12T09:17'),
+(5, 1, 5, 1, 'sick', 10, '2024-01-20T16:02'),
+(9, 1, 2, 4, 'I have nothing to say', 9, '2023-01-26T11:30'),
+(2, 3, 5, 1, 'hello world', 7, '2024-02-29T12:15');
 
 INSERT INTO SAVED_SPACE VALUES
 (4, 1),
@@ -118,4 +121,4 @@ INSERT INTO SAVED_SPACE VALUES
 (9, 7),
 (5, 2),
 (5, 7),
-(1, 3);
+(10, 3);
