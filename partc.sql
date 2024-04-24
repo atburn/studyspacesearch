@@ -2,7 +2,6 @@
 -- SQL Query 2: A correlated nested query with proper aliasing applied
 -- SQL Query 4: Uses a FULL OUTER JOIN
 -- SQL Query 5: Uses nested queries with any of the set operations UNION, EXCEPT, or INTERSECT*
--- SQL Query 7: Create your own non-trivial SQL query (must use at least two tables in FROM clause)
 -- SQL Query 8: Create your own non-trivial SQL query (must use at least two tables in FROM clause)
 -- SQL Query 9: Create your own non-trivial SQL query (must use at least three tables in FROM clause)
 -- SQL Query 10: Create your own non-trivial SQL query
@@ -48,7 +47,7 @@ JOIN(
     FROM OWNER
 ) AS owner_info
 ON
-    owner_info.owner_id = space.id
+    owner_info.owner_id = space.id;
 
 
 -- SQL Query 6: Create your own non-trivial SQL query (must use at least two tables in FROM clause)
@@ -72,4 +71,32 @@ JOIN(
         user_id
 ) AS saved_space
 ON
-    saved_space.user_id = user.id
+    saved_space.user_id = user.id;
+
+
+
+
+-- SQL Query 7: Create your own non-trivial SQL query (must use at least two tables in FROM clause)
+    -- Purpose: Returns a table of all owners and the buildings they own, if any
+    -- Expected: A table containing details about all owners, including buildings they own.
+SELECT 
+	OWNER.id AS owner_id,
+    OWNER.name,
+    OWNER.website,
+    OWNER.email,
+    OWNER.phone,
+    spaces.owned_spaces
+FROM OWNER
+LEFT JOIN(
+    SELECT
+        space.owner_id AS space_owner,
+        GROUP_CONCAT(space.id) AS owned_spaces
+    FROM
+        SPACE
+    JOIN OWNER ON 
+            OWNER.id = space.owner_id
+GROUP BY
+    space.owner_id
+) AS spaces
+ON
+    spaces.space_owner = OWNER.id;
