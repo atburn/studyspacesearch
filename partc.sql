@@ -1,8 +1,7 @@
 -- SQL Query 2: Uses nested queries with the IN, ANY or ALL operator and uses a GROUP BY clause
--- SQL Query 2: A correlated nested query with proper aliasing applied
+-- SQL Query 3: A correlated nested query with proper aliasing applied
 -- SQL Query 4: Uses a FULL OUTER JOIN
 -- SQL Query 5: Uses nested queries with any of the set operations UNION, EXCEPT, or INTERSECT*
--- SQL Query 8: Create your own non-trivial SQL query (must use at least two tables in FROM clause)
 -- SQL Query 9: Create your own non-trivial SQL query (must use at least three tables in FROM clause)
 -- SQL Query 10: Create your own non-trivial SQL query
 --     must use at least three tables in FROM clause
@@ -100,3 +99,27 @@ GROUP BY
 ) AS spaces
 ON
     spaces.space_owner = OWNER.id;
+
+
+-- SQL Query 8: Create your own non-trivial SQL query (must use at least two tables in FROM clause)
+    -- Purpose: Return a table of all spaces and their most recent comment
+    -- Expected: A table containing details about spaces and their most recent comment, if any
+SELECT
+    space.*,
+    recent_comments.*
+FROM
+    (
+    SELECT
+        user_comment.space_id AS space_id,
+        user_comment.noise,
+        user_comment.availibity,
+        user_comment.busyness,
+        user_comment.user_remark,
+        user_comment.user_id,
+        MAX(user_comment.timestamp) AS recent_comment
+    FROM
+        user_comment
+    GROUP BY
+        user_comment.space_id
+) AS recent_comments
+RIGHT JOIN SPACE ON space.id = recent_comments.space_id
