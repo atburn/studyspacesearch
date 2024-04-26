@@ -1,5 +1,3 @@
--- SQL Query 2: Uses nested queries with the IN, ANY or ALL operator and uses a GROUP BY clause
--- SQL Query 3: A correlated nested query with proper aliasing applied
 -- SQL Query 4: Uses a FULL OUTER JOIN
 -- SQL Query 5: Uses nested queries with any of the set operations UNION, EXCEPT, or INTERSECT*
 -- SQL Query 9: Create your own non-trivial SQL query (must use at least three tables in FROM clause)
@@ -48,6 +46,37 @@ JOIN(
 ON
     owner_info.owner_id = space.id;
 
+-- SQL Query 2: Uses nested queries with the IN, ANY or ALL operator and uses a GROUP BY clause
+	-- Purpose: Calculate the average noise level for each space, then compare the average noise level of each  
+	-- 	space to the overall average noise level for all spaces. Returns the spaces that have a below-average 
+	--	noise level.
+	-- Expected: A table with the spaces (with details) whose average noise level is less than the total average 
+	-- 	noise level from all spaces.
+SELECT SPACE.image "Image", 
+	SPACE.name "Space Name", 
+	SPACE.address "Address", 
+	SPACE.building "Building", 
+	SPACE.room "Room", 
+	avg(USER_COMMENT.noise) "Avg Noise Level"
+FROM USER_COMMENT 
+	JOIN SPACE 
+	ON USER_COMMENT.space_id = SPACE.id
+GROUP BY USER_COMMENT.space_id
+HAVING avg(USER_COMMENT.noise) < (
+	SELECT avg(USER_COMMENT.noise)
+	FROM USER_COMMENT
+);
+
+-- SQL Query 3: A correlated nested query with proper aliasing applied
+	-- Purpose: List the spaces that have a Whiteboard resource.
+	-- Expected: A table of spaces that have a whiteboard and their details.
+SELECT SP.id, SP.name
+FROM SPACE AS SP 
+WHERE EXISTS (
+	SELECT *
+	FROM SPACE_RESOURCE AS SR
+	WHERE SR.space_id = SP.id AND SR.name = 'Whiteboard'
+);
 
 -- SQL Query 6: Create your own non-trivial SQL query (must use at least two tables in FROM clause)
     -- Purpose: Returns a table of information about each user and the spaces they have reserved.
