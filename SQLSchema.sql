@@ -34,7 +34,7 @@ CREATE TABLE OWNER(
 ); CREATE TABLE USER_COMMENT(
     space_id INT(5) NOT NULL,
     noise INT(1) NOT NULL DEFAULT (1) CHECK (noise > 0 AND noise < 6),
-    availibity INT(1) NOT NULL DEFAULT (1) CHECK (availibity > 0 AND availibity < 6),
+    availability INT(1) NOT NULL DEFAULT (1) CHECK (availibity > 0 AND availibity < 6),
     busyness INT(1) NOT NULL DEFAULT (1) CHECK (busyness > 0 AND busyness < 6),
     user_remark VARCHAR(50) NOT NULL CHECK (CHAR_LENGTH(user_remark) > 0 AND CHAR_LENGTH(user_remark) < 51), 
     user_id INT(5),
