@@ -1,6 +1,3 @@
--- SQL Query 4: Uses a FULL OUTER JOIN
--- SQL Query 5: Uses nested queries with any of the set operations UNION, EXCEPT, or INTERSECT*
--- SQL Query 9: Create your own non-trivial SQL query (must use at least three tables in FROM clause)
 -- SQL Query 10: Create your own non-trivial SQL query
 --     must use at least three tables in FROM clause
 --     must use aliasing or renaming for at least once throughout SQL query
@@ -78,6 +75,37 @@ WHERE EXISTS (
 	WHERE SR.space_id = SP.id AND SR.name = 'Whiteboard'
 );
 
+-- SQL Query 4: Uses a FULL OUTER JOIN
+    -- Purpose: List locations for all spaces and any associated resources
+    -- Expected: A table of location information for study spaces and their resources
+    -- Union of left and right joins is used because MySQL does not support full join
+SELECT S.name, address, building, room, R.name AS 'resource'
+FROM SPACE AS S
+LEFT JOIN SPACE_RESOURCE AS R 
+ON S.id = R.space_id
+UNION ALL
+SELECT S.name, address, building, room, R.name AS 'resource'
+FROM SPACE AS S
+RIGHT JOIN SPACE_RESOURCE AS R 
+ON S.id = R.space_id;
+
+-- SQL Query 5: Uses nested queries with any of the set operations UNION, EXCEPT, or INTERSECT
+    -- Purpose: List all spaces that have a TV and a high average availability
+        -- Could be useful to those looking for a TV to use
+        -- Similar queries could be used for filtering spaces based on different criteria
+    -- Expected: A table of the names of spaces with a TV and high availability
+SELECT name FROM SPACE 
+WHERE id IN (
+    SELECT space_id 
+    FROM SPACE_RESOURCE 
+    WHERE name = 'TV' 
+    EXCEPT 
+    SELECT space_id 
+    FROM USER_COMMENT 
+    GROUP BY space_id 
+    HAVING AVG(availability) < 3
+);
+
 -- SQL Query 6: Create your own non-trivial SQL query (must use at least two tables in FROM clause)
     -- Purpose: Returns a table of information about each user and the spaces they have reserved.
     --      May be useful from an admin perspective
@@ -152,3 +180,16 @@ FROM
         user_comment.space_id
 ) AS recent_comments
 RIGHT JOIN SPACE ON space.id = recent_comments.space_id
+
+-- SQL Query 9: Create your own non-trivial SQL query (must use at least three tables in FROM clause)
+    -- Purpose: Retrieve all owners with a space that has a higher than average number of comments
+        -- Could be used to determine which owners' spaces have the highest activity
+    -- Expected: A table containing owner names with more than the average number of comments on their space(s)
+SELECT DISTINCT O.name
+FROM SPACE AS S, OWNER AS O, USER_COMMENT
+WHERE space_id = S.id AND owner_id = O.id
+GROUP BY space_id
+HAVING COUNT(space_id) > (SELECT AVG(count)
+                          FROM (SELECT COUNT(space_id) AS count 
+                                FROM USER_COMMENT
+                            	GROUP BY space_id) AS counts);
