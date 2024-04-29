@@ -164,7 +164,7 @@ FROM
     SELECT
         user_comment.space_id AS space_id,
         user_comment.noise,
-        user_comment.availibity,
+        user_comment.availability,
         user_comment.busyness,
         user_comment.user_remark,
         user_comment.user_id,
