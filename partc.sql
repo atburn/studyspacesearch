@@ -1,8 +1,3 @@
--- SQL Query 10: Create your own non-trivial SQL query
---     must use at least three tables in FROM clause
---     must use aliasing or renaming for at least once throughout SQL query
-
-
 -- SQL Query 1: Computes a join of at least three tables (must use JOIN ON)
     -- Purpose: Returns a table of the most user-relevent information of each space.
     -- Expected: A table containing details for each space
@@ -193,3 +188,43 @@ HAVING COUNT(space_id) > (SELECT AVG(count)
                           FROM (SELECT COUNT(space_id) AS count 
                                 FROM USER_COMMENT
                             	GROUP BY space_id) AS counts);
+
+-- SQL Query 10: Create your own non-trivial SQL query
+	-- Purpose: Get spaces with a positive comment. The comment includes the word(s) "nice", 
+	-- 	"great", "good", "wonderful", "love", or "like". The result set could be used to help 
+	-- 	recommend users a random study space.
+	-- Expected: A table listing the space's name, the space's building, the username of the user 
+	-- 	who made the comment, and the comment itself.
+SELECT
+    S.name, 
+    S.building,
+    U.username,
+    UC.user_remark
+FROM SPACE AS S 
+    JOIN USER_COMMENT AS UC
+    ON S.id = UC.space_id
+    JOIN `USER` AS U
+    ON UC.user_id = U.id
+WHERE (UC.user_remark LIKE '%nice%' 
+    OR UC.user_remark LIKE '%great%' 
+    OR UC.user_remark LIKE '%good%' 
+    OR UC.user_remark LIKE '%wonderful%'
+    OR UC.user_remark LIKE '%love%'
+    OR UC.user_remark LIKE '%like%')
+    AND UC.user_remark NOT IN (
+        SELECT USER_COMMENT.user_remark
+        FROM USER_COMMENT
+        WHERE USER_COMMENT.user_remark LIKE '%not nice%' 
+        	OR USER_COMMENT.user_remark LIKE '%n\'t nice%'
+            	OR USER_COMMENT.user_remark LIKE '%not great%' 
+        	OR USER_COMMENT.user_remark LIKE '%n\'t great%'
+            	OR USER_COMMENT.user_remark LIKE '%not good%' 
+        	OR USER_COMMENT.user_remark LIKE '%n\'t good%'
+            	OR USER_COMMENT.user_remark LIKE '%not wonderful%'
+        	OR USER_COMMENT.user_remark LIKE '%n\'t wonderful%'
+        	OR USER_COMMENT.user_remark LIKE '%not love%'
+        	OR USER_COMMENT.user_remark LIKE '%n\'t love%'
+        	OR USER_COMMENT.user_remark LIKE '%not like%'
+        	OR USER_COMMENT.user_remark LIKE '%n\'t like%'
+    )
+;
