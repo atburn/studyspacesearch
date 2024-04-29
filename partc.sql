@@ -71,18 +71,19 @@ WHERE EXISTS (
 );
 
 -- SQL Query 4: Uses a FULL OUTER JOIN
-    -- Purpose: List locations for all spaces and any associated resources
-    -- Expected: A table of location information for study spaces and their resources
+    -- Purpose: List of all users and any associated text comments
+    -- Expected: A table of users' public information and their text comments
     -- Union of left and right joins is used because MySQL does not support full join
-SELECT S.name, address, building, room, R.name AS 'resource'
-FROM SPACE AS S
-LEFT JOIN SPACE_RESOURCE AS R 
-ON S.id = R.space_id
-UNION ALL
-SELECT S.name, address, building, room, R.name AS 'resource'
-FROM SPACE AS S
-RIGHT JOIN SPACE_RESOURCE AS R 
-ON S.id = R.space_id;
+SELECT id, username, email, space_id as space, user_remark AS comment, timestamp
+FROM USER AS U
+LEFT JOIN USER_COMMENT AS UC
+ON U.id = UC.user_id
+UNION
+SELECT id, username, email, space_id as space, user_remark AS comment, timestamp
+FROM USER AS U
+RIGHT JOIN USER_COMMENT AS UC
+ON U.id = UC.user_id
+ORDER BY id;
 
 -- SQL Query 5: Uses nested queries with any of the set operations UNION, EXCEPT, or INTERSECT
     -- Purpose: List all spaces that have a TV and a high average availability
