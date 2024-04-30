@@ -40,7 +40,7 @@ ON
 
 -- SQL Query 2: Uses nested queries with the IN, ANY or ALL operator and uses a GROUP BY clause
     -- Purpose: Get the space owned by UW Tacoma that users have saved the most. This result could
-    --    be used to help recommend users the "most favorited" space.
+    --    be used to help recommend users the "most favorited" UWT space.
     -- Expected: One tuple describing the UW Tacoma study space that has been saved by users the most. It 
     --    includes space details (image, name, address, building, room) and the number of times it has been saved.
 SELECT
@@ -50,26 +50,43 @@ SELECT
     SPACE.building 'Building',
     SPACE.room 'Room',
     MAX(sum_list.total_times_saved) 'Total Times Saved by Users'
-FROM
-    (
+FROM(
     SELECT
         COUNT(*) AS total_times_saved
     FROM
-        saved_space
-    JOIN SPACE ON saved_space.space_id = space.id
+        SAVED_SPACE
+    JOIN(
+        SELECT
+            SPACE.name,
+            SPACE.id
+        FROM
+            SPACE
+        JOIN 
+            OWNER 
+        ON 
+            SPACE.owner_id = OWNER.id
+        WHERE 
+            OWNER.name = 'UW Tacoma'
+        ) AS UWlist
+    ON
+        SAVED_SPACE.space_id = UWlist.id
     GROUP BY
-        saved_space.space_id
-) AS sum_list,
-SPACE
+        SAVED_SPACE.space_id
+    ) AS sum_list,
+    SPACE
 WHERE
     SPACE.id IN(
-    SELECT
-        SPACE.id
-    FROM
-        SPACE
-    JOIN OWNER ON SPACE.owner_id = OWNER.id
-WHERE OWNER.name = 'UW Tacoma'
-);
+        SELECT
+            SPACE.id
+        FROM
+            SPACE
+        JOIN 
+            OWNER 
+        ON 
+            SPACE.owner_id = OWNER.id
+        WHERE 
+            OWNER.name = 'UW Tacoma'
+    );
 
 -- SQL Query 3: A correlated nested query with proper aliasing applied
     -- Purpose: Lists the spaces that have a Whiteboard resource.
@@ -97,33 +114,56 @@ WHERE
     -- Purpose: List of all users and any associated text comments
     -- Expected: A table of users' public information and their text comments
     -- Union of left and right joins is used because MySQL does not support full join
-SELECT id, username, email, space_id as space, user_remark AS comment, timestamp
-FROM USER AS U
-LEFT JOIN USER_COMMENT AS UC
-ON U.id = UC.user_id
+SELECT 
+    id, 
+    username, 
+    email, 
+    space_id as space, 
+    user_remark AS comment, 
+    timestamp
+FROM 
+    USER AS U
+LEFT JOIN 
+    USER_COMMENT AS UC
+ON 
+    U.id = UC.user_id
 UNION
-SELECT id, username, email, space_id as space, user_remark AS comment, timestamp
-FROM USER AS U
-RIGHT JOIN USER_COMMENT AS UC
-ON U.id = UC.user_id
-ORDER BY id;
+SELECT 
+    id, 
+    username, 
+    email, 
+    space_id as space, 
+    user_remark AS comment, 
+    timestamp
+FROM 
+    USER AS U
+RIGHT JOIN 
+    USER_COMMENT AS UC
+ON 
+    U.id = UC.user_id
+ORDER BY 
+    id;
 
 -- SQL Query 5: Uses nested queries with any of the set operations UNION, EXCEPT, or INTERSECT
     -- Purpose: List all spaces that have a TV and a high average availability
         -- Could be useful to those looking for a TV to use
         -- Similar queries could be used for filtering spaces based on different criteria
     -- Expected: A table of the names of spaces with a TV and high availability
-SELECT name FROM SPACE 
-WHERE id IN (
-    SELECT space_id 
-    FROM SPACE_RESOURCE 
-    WHERE name = 'TV' 
-    EXCEPT 
-    SELECT space_id 
-    FROM USER_COMMENT 
-    GROUP BY space_id 
-    HAVING AVG(availability) < 3
-);
+SELECT 
+    name 
+FROM 
+    SPACE 
+WHERE 
+    id IN(
+        SELECT space_id 
+        FROM SPACE_RESOURCE 
+        WHERE name = 'TV' 
+        EXCEPT 
+        SELECT space_id 
+        FROM USER_COMMENT 
+        GROUP BY space_id 
+        HAVING AVG(availability) < 3
+    );
 
 -- SQL Query 6: Create your own non-trivial SQL query (must use at least two tables in FROM clause)
     -- Purpose: Returns a table of information about each user and the spaces they have reserved.
@@ -155,24 +195,27 @@ ON
     -- Purpose: Returns a table of all owners and the buildings they own, if any
     -- Expected: A table containing details about all owners, including buildings they own.
 SELECT 
-	OWNER.id AS owner_id,
+    OWNER.id AS owner_id,
     OWNER.name,
     OWNER.website,
     OWNER.email,
     OWNER.phone,
     spaces.owned_spaces
-FROM OWNER
+FROM 
+    OWNER
 LEFT JOIN(
     SELECT
         space.owner_id AS space_owner,
         GROUP_CONCAT(space.id) AS owned_spaces
     FROM
         SPACE
-    JOIN OWNER ON 
+    JOIN 
+        OWNER 
+    ON 
             OWNER.id = space.owner_id
-GROUP BY
-    space.owner_id
-) AS spaces
+    GROUP BY
+        space.owner_id
+    ) AS spaces
 ON
     spaces.space_owner = OWNER.id;
 
@@ -183,8 +226,7 @@ ON
 SELECT
     space.*,
     recent_comments.*
-FROM
-    (
+FROM(
     SELECT
         user_comment.space_id AS space_id,
         user_comment.noise,
@@ -197,21 +239,33 @@ FROM
         user_comment
     GROUP BY
         user_comment.space_id
-) AS recent_comments
-RIGHT JOIN SPACE ON space.id = recent_comments.space_id
+    ) AS recent_comments
+RIGHT JOIN 
+    SPACE 
+ON 
+    space.id = recent_comments.space_id
 
 -- SQL Query 9: Create your own non-trivial SQL query (must use at least three tables in FROM clause)
     -- Purpose: Retrieve all owners with a space that has a higher than average number of comments
         -- Could be used to determine which owners' spaces have the highest activity
     -- Expected: A table containing owner names with more than the average number of comments on their space(s)
-SELECT DISTINCT O.name
-FROM SPACE AS S, OWNER AS O, USER_COMMENT
-WHERE space_id = S.id AND owner_id = O.id
-GROUP BY space_id
+SELECT DISTINCT 
+    O.name
+FROM 
+    SPACE AS S, 
+    OWNER AS O, 
+    USER_COMMENT
+WHERE 
+    space_id = S.id AND owner_id = O.id
+GROUP BY 
+    space_id
 HAVING COUNT(space_id) > (SELECT AVG(count)
-                          FROM (SELECT COUNT(space_id) AS count 
-                                FROM USER_COMMENT
-                            	GROUP BY space_id) AS counts);
+                          FROM (SELECT 
+	                            COUNT(space_id) AS count 
+                                FROM 
+                                    USER_COMMENT
+                            	GROUP BY 
+                                    space_id) AS counts);
 
 -- SQL Query 10: Create your own non-trivial SQL query
     -- Purpose: Get spaces with a positive comment. The comment includes the word(s) "nice", 
@@ -232,8 +286,7 @@ ON
 JOIN `USER` AS U
 ON
     UC.user_id = U.id
-WHERE
-    (
+WHERE(
         UC.user_remark LIKE '%nice%' 
 	OR UC.user_remark LIKE '%great%' 
 	OR UC.user_remark LIKE '%good%' 
