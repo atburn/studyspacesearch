@@ -188,9 +188,6 @@ JOIN(
 ON
     saved_space.user_id = user.id;
 
-
-
-
 -- SQL Query 7: Create your own non-trivial SQL query (must use at least two tables in FROM clause)
     -- Purpose: Returns a table of all owners and the buildings they own, if any
     -- Expected: A table containing details about all owners, including buildings they own.
@@ -219,7 +216,6 @@ LEFT JOIN(
 ON
     spaces.space_owner = OWNER.id;
 
-
 -- SQL Query 8: Create your own non-trivial SQL query (must use at least two tables in FROM clause)
     -- Purpose: Return a table of all spaces and their most recent comment
     -- Expected: A table containing details about spaces and their most recent comment, if any
@@ -243,7 +239,7 @@ FROM(
 RIGHT JOIN 
     SPACE 
 ON 
-    space.id = recent_comments.space_id
+    space.id = recent_comments.space_id;
 
 -- SQL Query 9: Create your own non-trivial SQL query (must use at least three tables in FROM clause)
     -- Purpose: Retrieve all owners with a space that has a higher than average number of comments
