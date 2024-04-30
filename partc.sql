@@ -39,21 +39,37 @@ ON
     owner_info.owner_id = space.id;
 
 -- SQL Query 2: Uses nested queries with the IN, ANY or ALL operator and uses a GROUP BY clause
-    -- Purpose: Get the number of comments that each space has, if any.
-    -- Expected: A table with spaces that have at least one comment. It includes space details (image, 
-    --    name, address, building, room) and the number of comments that the space has.
+    -- Purpose: Get the space owned by UW Tacoma that users have saved the most. This result could
+    --    be used to help recommend users the "most favorited" space.
+    -- Expected: One tuple describing the UW Tacoma study space that has been saved by users the most. It 
+    --    includes space details (image, name, address, building, room) and the number of times it has been saved.
 SELECT
-    SPACE.image "Image",
-    SPACE.name "Space Name",
-    SPACE.address "Address",
-    SPACE.building "Building",
-    SPACE.room "Room",
-    COUNT(*) "Number of Comments"
+    SPACE.image 'Image',
+    SPACE.name 'Space Name',
+    SPACE.address 'Address',
+    SPACE.building 'Building',
+    SPACE.room 'Room',
+    MAX(sum_list.total_times_saved) 'Total Times Saved by Users'
 FROM
-    SPACE
-JOIN USER_COMMENT ON SPACE.id = USER_COMMENT.space_id
-GROUP BY
-    SPACE.id;
+    (
+    SELECT
+        COUNT(*) AS total_times_saved
+    FROM
+        saved_space
+    JOIN SPACE ON saved_space.space_id = space.id
+    GROUP BY
+        saved_space.space_id
+) AS sum_list,
+SPACE
+WHERE
+    SPACE.id IN(
+    SELECT
+        SPACE.id
+    FROM
+        SPACE
+    JOIN OWNER ON SPACE.owner_id = OWNER.id
+WHERE OWNER.name = 'UW Tacoma'
+);
 
 -- SQL Query 3: A correlated nested query with proper aliasing applied
     -- Purpose: Lists the spaces that have a Whiteboard resource.
