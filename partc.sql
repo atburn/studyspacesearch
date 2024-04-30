@@ -39,35 +39,42 @@ ON
     owner_info.owner_id = space.id;
 
 -- SQL Query 2: Uses nested queries with the IN, ANY or ALL operator and uses a GROUP BY clause
-	-- Purpose: Calculate the average noise level for each space, then compare the average noise level of each  
-	-- 	space to the overall average noise level for all spaces. Returns the spaces that have a below-average 
-	--	noise level.
-	-- Expected: A table with the spaces (with details) whose average noise level is less than the total average 
-	-- 	noise level from all spaces.
-SELECT SPACE.image "Image", 
-	SPACE.name "Space Name", 
-	SPACE.address "Address", 
-	SPACE.building "Building", 
-	SPACE.room "Room", 
-	avg(USER_COMMENT.noise) "Avg Noise Level"
-FROM USER_COMMENT 
-	JOIN SPACE 
-	ON USER_COMMENT.space_id = SPACE.id
-GROUP BY USER_COMMENT.space_id
-HAVING avg(USER_COMMENT.noise) < (
-	SELECT avg(USER_COMMENT.noise)
-	FROM USER_COMMENT
-);
+    -- Purpose: Get the number of comments that each space has, if any.
+    -- Expected: A table with spaces that have at least one comment. It includes space details (image, 
+    --    name, address, building, room) and the number of comments that the space has.
+SELECT
+    SPACE.image "Image",
+    SPACE.name "Space Name",
+    SPACE.address "Address",
+    SPACE.building "Building",
+    SPACE.room "Room",
+    COUNT(*) "Number of Comments"
+FROM
+    SPACE
+JOIN USER_COMMENT ON SPACE.id = USER_COMMENT.space_id
+GROUP BY
+    SPACE.id;
 
 -- SQL Query 3: A correlated nested query with proper aliasing applied
-	-- Purpose: List the spaces that have a Whiteboard resource.
-	-- Expected: A table of spaces that have a whiteboard and their details.
-SELECT SP.id, SP.name
-FROM SPACE AS SP 
-WHERE EXISTS (
-	SELECT *
-	FROM SPACE_RESOURCE AS SR
-	WHERE SR.space_id = SP.id AND SR.name = 'Whiteboard'
+    -- Purpose: Lists the spaces that have a Whiteboard resource.
+    -- Expected: A table of spaces that have a whiteboard. It includes the space's image, name,
+    --    address, building, and room.
+SELECT
+    SP.image "Image",
+    SP.name "Space Name",
+    SP.address "Address",
+    SP.building "Building",
+    SP.room "Room"
+FROM
+    SPACE AS SP
+WHERE
+    EXISTS(
+    SELECT
+        *
+    FROM
+        SPACE_RESOURCE AS SR
+    WHERE
+        SR.space_id = SP.id AND SR.name = 'Whiteboard'
 );
 
 -- SQL Query 4: Uses a FULL OUTER JOIN
@@ -191,41 +198,48 @@ HAVING COUNT(space_id) > (SELECT AVG(count)
                             	GROUP BY space_id) AS counts);
 
 -- SQL Query 10: Create your own non-trivial SQL query
-	-- Purpose: Get spaces with a positive comment. The comment includes the word(s) "nice", 
-	-- 	"great", "good", "wonderful", "love", or "like". The result set could be used to help 
-	-- 	recommend users a random study space.
-	-- Expected: A table listing the space's name, the space's building, the username of the user 
-	-- 	who made the comment, and the comment itself.
+    -- Purpose: Get spaces with a positive comment. The comment includes the word(s) "nice", 
+    --     "great", "good", "wonderful", "love", or "like". The result set could be used to help 
+    -- 	   recommend users a random study space.
+    -- Expected: A table listing the space's name, the space's building, the username of the user 
+    --     who made the comment, and the comment itself.
 SELECT
-    S.name, 
+    S.name,
     S.building,
     U.username,
     UC.user_remark
-FROM SPACE AS S 
-    JOIN USER_COMMENT AS UC
-    ON S.id = UC.space_id
-    JOIN `USER` AS U
-    ON UC.user_id = U.id
-WHERE (UC.user_remark LIKE '%nice%' 
-    OR UC.user_remark LIKE '%great%' 
-    OR UC.user_remark LIKE '%good%' 
-    OR UC.user_remark LIKE '%wonderful%'
-    OR UC.user_remark LIKE '%love%'
-    OR UC.user_remark LIKE '%like%')
-    AND UC.user_remark NOT IN (
-        SELECT USER_COMMENT.user_remark
-        FROM USER_COMMENT
-        WHERE USER_COMMENT.user_remark LIKE '%not nice%' 
-        	OR USER_COMMENT.user_remark LIKE '%n\'t nice%'
-            	OR USER_COMMENT.user_remark LIKE '%not great%' 
-        	OR USER_COMMENT.user_remark LIKE '%n\'t great%'
-            	OR USER_COMMENT.user_remark LIKE '%not good%' 
-        	OR USER_COMMENT.user_remark LIKE '%n\'t good%'
-            	OR USER_COMMENT.user_remark LIKE '%not wonderful%'
-        	OR USER_COMMENT.user_remark LIKE '%n\'t wonderful%'
-        	OR USER_COMMENT.user_remark LIKE '%not love%'
-        	OR USER_COMMENT.user_remark LIKE '%n\'t love%'
-        	OR USER_COMMENT.user_remark LIKE '%not like%'
-        	OR USER_COMMENT.user_remark LIKE '%n\'t like%'
-    )
-;
+FROM
+    SPACE AS S
+JOIN USER_COMMENT AS UC
+ON
+    S.id = UC.space_id
+JOIN `USER` AS U
+ON
+    UC.user_id = U.id
+WHERE
+    (
+        UC.user_remark LIKE '%nice%' 
+	OR UC.user_remark LIKE '%great%' 
+	OR UC.user_remark LIKE '%good%' 
+	OR UC.user_remark LIKE '%wonderful%' 
+	OR UC.user_remark LIKE '%love%' 
+	OR UC.user_remark LIKE '%like%'
+    ) AND UC.user_remark NOT IN(
+    SELECT
+        USER_COMMENT.user_remark
+    FROM
+        USER_COMMENT
+    WHERE
+        USER_COMMENT.user_remark LIKE '%not nice%' 
+	OR USER_COMMENT.user_remark LIKE '%n\'t nice%' 
+	OR USER_COMMENT.user_remark LIKE '%not great%' 
+	OR USER_COMMENT.user_remark LIKE '%n\'t great%' 
+	OR USER_COMMENT.user_remark LIKE '%not good%' 
+	OR USER_COMMENT.user_remark LIKE '%n\'t good%' 
+	OR USER_COMMENT.user_remark LIKE '%not wonderful%' 
+	OR USER_COMMENT.user_remark LIKE '%n\'t wonderful%' 
+	OR USER_COMMENT.user_remark LIKE '%not love%' 
+	OR USER_COMMENT.user_remark LIKE '%n\'t love%' 
+	OR USER_COMMENT.user_remark LIKE '%not like%' 
+	OR USER_COMMENT.user_remark LIKE '%n\'t like%'
+);
