@@ -1,0 +1,104 @@
+:root {
+    --gold: rgb(243, 224, 157);
+	--darkpurple: rgb(68, 54, 94);
+	--blue: rgb(59, 134, 159);
+	--lightblue: rgb(222, 236, 237);
+}
+
+.amaranth-bold {
+  font-family: "Amaranth", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.raleway-<uniquifier> {
+  font-family: "Raleway", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+}
+
+
+body {
+	margin: 0 auto;
+	padding: 0;
+	background-color: var(--darkpurple);
+	font-family: "Raleway", sans-serif;
+	
+}
+
+header {
+	background-color:var(--gold);
+	display: flex;
+	justify-content: space-between;
+}
+header #hamburger {
+	margin: 25px 50px 25px 50px;
+}
+
+header #logoTitle {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+header #logoTitle h1 {
+	font-family: "Amaranth", sans-serif;
+	font-size: 4em;
+	color: var(--darkpurple);
+	margin: 0 0 0 0;
+}
+
+header #logButtons {
+	display: flex;
+    justify-content: space-between;
+    align-items: center;
+	border-radius: 5px;
+}
+
+header #loginB {
+	margin: 0px 10px 0px 10px;
+	padding: 5px;
+	background-color: transparent;
+	color: var(--blue);
+	border: 2px solid var(--blue);
+	border-radius: 10px;
+	font-size: 1.3em;
+	font-family: "Amaranth", sans-serif;
+	transition: 0.1s;
+}
+
+header #loginB:hover, #signupB:hover{
+	transform: scale(1.2);
+	cursor:pointer;
+}
+
+header #loginB:active {
+	background-color: white;
+}
+
+header #signupB {
+	margin: 0px 10px 0px 10px;
+	padding: 5px;
+	background-color: var(--blue);
+	border: 2px solid var(--blue);
+	color: white;
+	border-radius: 10px;
+	font-size: 1.3em;
+	font-family: "Amaranth", sans-serif;
+}
+
+header #signupB:active {
+	background-color: var(--lightblue);
+}
+
+main {
+	margin: auto;
+	width: 90%;
+	display: block;
+}
+
+.centered-section{
+	background-color: white;
+	border-radius: 1em;
+}
