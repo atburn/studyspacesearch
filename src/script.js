@@ -134,9 +134,9 @@ async function _registerUserInFirebase(email, password) {
 //     console.log(response)
 // });
 
-registerUser("testUser", "test@test.com", "123456").then(response => {
-    console.log(response)
-})
+// registerUser("testUser", "test@test.com", "123456").then(response => {
+//     console.log(response)
+// })
 
 
 
