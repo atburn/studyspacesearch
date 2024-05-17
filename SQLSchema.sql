@@ -27,14 +27,12 @@ CREATE TABLE OWNER(
 ); CREATE TABLE `USER`(
     id INT(5) NOT NULL,
     username VARCHAR(50) NOT NULL,
-    `password` VARCHAR(50) NOT NULL,
-    salt VARCHAR(50) NOT NULL,
     email VARCHAR(254) NOT NULL,
     PRIMARY KEY(id)
 ); CREATE TABLE USER_COMMENT(
     space_id INT(5) NOT NULL,
     noise INT(1) NOT NULL DEFAULT (1) CHECK (noise > 0 AND noise < 6),
-    availability INT(1) NOT NULL DEFAULT (1) CHECK (availibity > 0 AND availibity < 6),
+    availability INT(1) NOT NULL DEFAULT (1) CHECK (availability > 0 AND availability < 6),
     busyness INT(1) NOT NULL DEFAULT (1) CHECK (busyness > 0 AND busyness < 6),
     user_remark VARCHAR(50) NOT NULL CHECK (CHAR_LENGTH(user_remark) > 0 AND CHAR_LENGTH(user_remark) < 51), 
     user_id INT(5),
@@ -75,16 +73,16 @@ INSERT INTO SPACE VALUES
 (10, 'CP 3A', '1922 Pacific Avenue, Tacoma, WA 98402', 'Cherry Parkes', '3A', 1, 'Reservable Study Space', 'https://25live.collegenet.com/25live/data/washington/run/image?image_id=948', '8:00 AM - 5:00 PM Monday - Friday<br />Closed Saturday - Sunday');
 
 INSERT INTO USER VALUES
-(1, 'user', 'not a real hash', 'not a real salt', 'user@email.com'),
-(2, 'aaron', 'not a real hash', 'not a real salt', 'atburn@uw.edu'),
-(3, 'megumi', 'not a real hash', 'not a real salt', 'minven@uw.edu'),
-(4, 'trae', 'not a real hash', 'not a real salt', 'tclaar@uw.edu'),
-(5, 'bob', 'not a real hash', 'not a real salt', 'bob@email.com'),
-(6, 'user2', 'not a real hash', 'not a real salt', 'some@email.com'),
-(7, 'user3', 'not a real hash', 'not a real salt', 'some-other@email.com'),
-(8, 'user4', 'not a real hash', 'not a real salt', 'user4@email.com'),
-(9, 'another_user', 'not a real hash', 'not a real salt', 'another@email.com'),
-(10, 'user5', 'not a real hash', 'not a real salt', 'ok@email.com');
+(1, 'user', 'user@email.com'),
+(2, 'aaron', 'atburn@uw.edu'),
+(3, 'megumi', 'minven@uw.edu'),
+(4, 'trae', 'tclaar@uw.edu'),
+(5, 'bob', 'bob@email.com'),
+(6, 'user2', 'some@email.com'),
+(7, 'user3', 'some-other@email.com'),
+(8, 'user4', 'user4@email.com'),
+(9, 'another_user', 'another@email.com'),
+(10, 'user5', 'ok@email.com');
 
 INSERT INTO SPACE_RESOURCE VALUES
 (1, 'Microwave'),
