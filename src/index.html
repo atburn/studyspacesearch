@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Space Study Search</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
 	<style>
 	@import url('https://fonts.googleapis.com/css2?family=Amaranth:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 	</style>
@@ -13,10 +13,21 @@
 	</style>
 
     <script defer src="script.js"></script>
+	<script>
+		function openNav() {
+		  document.getElementById("sidenav").style.width = "20em";
+		}
+
+		function closeNav() {
+		  document.getElementById("sidenav").style.width = "0";
+		}
+	</script>
 </head>
 <body>
+
 	<header>
-		<div id="hamburger">&#9477;</div>
+
+		<div id="hamburger-icon" onclick="openNav()">&#8801;</div>
 		<div id="logoTitle">
 			<img src="images/SSSHeaderLogo.png" width="130", height="120">
 			<h1>Space Study Search</h1>
@@ -26,6 +37,16 @@
 			<button id="signupB">Sign Up</button>
 		</div>
 	</header>
+	
+	<nav>
+		<div id="sidenav" class="sidenav">
+		  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+		  <a href="#">Home</a>
+		  <a href="#">Discover&nbsp;Spaces</a>
+		  <a href="#">Saved&nbsp;Spaces</a>
+		  <a href="#">About</a>
+		</div>
+	</nav>
 	
 	<main>
 		<div class="centered-section">
