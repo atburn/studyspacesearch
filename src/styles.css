@@ -1,6 +1,7 @@
 :root {
     --gold: rgb(243, 224, 157);
 	--darkpurple: rgb(68, 54, 94);
+	--lightpurple: rgb(189, 181, 205);
 	--blue: rgb(59, 134, 159);
 	--lightblue: rgb(222, 236, 237);
 }
@@ -18,13 +19,56 @@
   font-style: normal;
 }
 
-
 body {
 	margin: 0 auto;
 	padding: 0;
 	background-color: var(--darkpurple);
 	font-family: "Raleway", sans-serif;
-	
+}
+
+#hamburger-icon {
+	margin-left: 0.4em;
+	font-size: 6em;
+	color: var(--darkpurple);
+}
+
+#hamburger-icon:hover{
+	cursor: pointer;
+}
+
+.sidenav {
+	height: 100%;
+	width: 0;
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	background-color: var(--gold);
+	overflow-x: hidden;
+	padding-top: 60px; 
+	transition: 0.3s;
+	font-family: "Amaranth", sans-serif;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: var(--darkpurple);
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: var(--lightpurple);
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 4em;
+  margin-left: 50px;
 }
 
 header {
@@ -70,7 +114,7 @@ header #loginB {
 
 header #loginB:hover, #signupB:hover{
 	transform: scale(1.2);
-	cursor:pointer;
+	cursor: pointer;
 }
 
 header #loginB:active {
@@ -101,4 +145,5 @@ main {
 .centered-section{
 	background-color: white;
 	border-radius: 1em;
+	padding-left: 0.7em;
 }
