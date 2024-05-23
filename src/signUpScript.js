@@ -3,7 +3,7 @@ const emailField = document.getElementById('emailField');
 const passwordField = document.getElementById('passwordField');
 
 document.getElementById('signUpButton').addEventListener('click', async () => {
-    if (!nameField || !emailField.checkValidity()) {
+    if (!nameField.checkValidity() || !emailField.checkValidity()) {
         return;
     }
 
