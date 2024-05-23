@@ -175,7 +175,7 @@ document.getElementById("loginButton").addEventListener('click', async () => {
     }
 
     const userID = response.localId;
-
+    // TODO: userID in cookies. I can't figure it out for some reason. 
 
 
 });
