@@ -1,16 +1,15 @@
+const nameField = document.getElementById('nameField');
 const emailField = document.getElementById('emailField');
 const passwordField = document.getElementById('passwordField');
 
-document.getElementById("loginButton").addEventListener('click', async () => {
-    if (emailField.checkValidity() === false) {
+document.getElementById('signUpButton').addEventListener('click', async () => {
+    if (!nameField || !emailField.checkValidity()) {
         return;
     }
 
-    // Don't think we need to check the password field
-
-    const response = await signInUser(emailField.value, passwordField.value);
+    const response = await registerUser(nameField.value, emailField.value, passwordField.value);
     if (response === null) {
-        // Handle incorrect email/password, or no account
+        // Handle some error.
         // probably display an error message
         return;
     }
@@ -19,6 +18,4 @@ document.getElementById("loginButton").addEventListener('click', async () => {
 
     window.sessionStorage.setItem("userId", userID);
     document.location.href = "index.html";
-
 });
-

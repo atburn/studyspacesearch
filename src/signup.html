@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Space Study Search - Login</title>
+    <title>Space Study Search - Sign Up</title>
     <link rel="stylesheet" href="style.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Amaranth:ital,wght@0,400;0,700;1,400;1,700&display=swap');
@@ -14,7 +14,7 @@
     </style>
 
     <script defer src="Auth.js"></script>
-    <script defer src="loginScript.js"></script>
+    <script defer src="signUpScript.js"></script>
 
 
 </head>
@@ -59,13 +59,16 @@
 
         <div style="display: flex; justify-content: center; background-color: wheat;">
             <form>
+                <label>Name: </label>
+                <input type="text" id="nameField" required />
+                <br />
                 <label>Email: </label>
                 <input type="email" id="emailField" required />
                 <br />
                 <label>Password: </label>
                 <input type="password" id="passwordField" required />
                 <br />
-                <button id="loginButton" type="button">Login</button>
+                <button id="signUpButton" type="button">Login</button>
             </form>
         </div>
 

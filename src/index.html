@@ -13,7 +13,7 @@
 		@import url('https://fonts.googleapis.com/css2?family=Amaranth:ital,wght@0,400;0,700;1,400;1,700&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 	</style>
 
-	<!-- <script defer src="script.js"></script> -->
+	<script defer src="indexScript.js"></script>
 	<script>
 		function openNav() {
 			document.getElementById("sidenav").style.width = "20em";
@@ -28,7 +28,6 @@
 <body>
 
 	<header>
-
 		<div id="hamburger-icon" onclick="openNav()">&#8801;</div>
 
 		<a href="./index.html" id="logoTitle">
@@ -38,13 +37,22 @@
 
 
 		<div id="logButtons">
-			<a href="./login.html">
-				<button id="loginB">Log In</button>
-			</a>
+			<div id="signedInButtons"">
+				<p id="loggedInAsText">Logged in as: </p>
+				<button id="signOutButton">Sign Out</button>
+			</div>
 
-			<a href="./signup.html">
-				<button id="signupB">Sign Up</button>
-			</a>
+
+			<div id="notSignedInButtons">
+				<a href="./login.html">
+					<button id="loginB">Log In</button>
+				</a>
+
+				<a href="./signup.html">
+					<button id="signupB">Sign Up</button>
+				</a>
+
+			</div>
 
 		</div>
 	</header>
