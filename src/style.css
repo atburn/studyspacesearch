@@ -1,5 +1,5 @@
 :root {
-    --gold: rgb(243, 224, 157);
+	--gold: rgb(243, 224, 157);
 	--darkpurple: rgb(68, 54, 94);
 	--lightpurple: rgb(189, 181, 205);
 	--blue: rgb(59, 134, 159);
@@ -76,6 +76,7 @@ header {
 	display: flex;
 	justify-content: space-between;
 }
+
 header #hamburger {
 	margin: 25px 50px 25px 50px;
 }
@@ -84,7 +85,6 @@ header #logoTitle {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	text-decoration: none;
 }
 
 header #logoTitle h1 {
@@ -101,10 +101,10 @@ header #logButtons {
 	border-radius: 5px;
 }
 
-header #loginB {
+.loginB {
 	margin: 0px 10px 0px 10px;
 	padding: 5px;
-	background-color: transparent;
+	background-color: var(--gold);
 	color: var(--blue);
 	border: 2px solid var(--blue);
 	border-radius: 10px;
@@ -113,16 +113,16 @@ header #loginB {
 	transition: 0.1s;
 }
 
-header #loginB:hover, #signupB:hover{
+.loginB:hover, .signupB:hover{
 	transform: scale(1.2);
 	cursor: pointer;
 }
 
-header #loginB:active {
+.loginB:active {
 	background-color: white;
 }
 
-header #signupB {
+.signupB {
 	margin: 0px 10px 0px 10px;
 	padding: 5px;
 	background-color: var(--blue);
@@ -133,18 +133,40 @@ header #signupB {
 	font-family: "Amaranth", sans-serif;
 }
 
-header #signupB:active {
+.signupB:active {
 	background-color: var(--lightblue);
+	color: var(--blue);
 }
 
 main {
 	margin: auto;
+	padding-top: 1em;
 	width: 90%;
-	display: block;
+	display: flex;
+	flex-direction: column;
+	gap: 1em;
 }
 
 .centered-section{
 	background-color: white;
 	border-radius: 1em;
-	padding-left: 0.7em;
+	padding: 1em;
+}
+
+.div-form{
+	border-radius: 1em;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+input{
+	padding: 0.2em;
+	width: 20em;
 }
