@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Space Study Search</title>
-	<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Study Search</title>
+    <link rel="stylesheet" href="style.css">
 	<style>
 		@import url('https://fonts.googleapis.com/css2?family=Amaranth:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 	</style>
@@ -13,65 +12,60 @@
 		@import url('https://fonts.googleapis.com/css2?family=Amaranth:ital,wght@0,400;0,700;1,400;1,700&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 	</style>
 
-	<script defer src="indexScript.js"></script>
+    <script defer src="indexScript.js"></script>
 	<script>
 		function openNav() {
-			document.getElementById("sidenav").style.width = "20em";
+		  document.getElementById("sidenav").style.width = "20em";
 		}
 
 		function closeNav() {
-			document.getElementById("sidenav").style.width = "0";
+		  document.getElementById("sidenav").style.width = "0";
 		}
 	</script>
 </head>
-
 <body>
-
 	<header>
 		<div id="hamburger-icon" onclick="openNav()">&#8801;</div>
 
-		<a href="./index.html" id="logoTitle">
+		<a href="./index.html" id="logoTitle" style="text-decoration: none;">
 			<img src="images/SSSHeaderLogo.png" width="130" , height="120">
 			<h1>Space Study Search</h1>
 		</a>
 
-
 		<div id="logButtons">
-			<div id="signedInButtons"">
+			<div id="signedInButtons">
 				<p id="loggedInAsText">Logged in as: </p>
 				<button id="signOutButton">Sign Out</button>
 			</div>
 
-
 			<div id="notSignedInButtons">
 				<a href="./login.html">
-					<button id="loginB">Log In</button>
+					<button class="loginB">Log In</button>
 				</a>
 
 				<a href="./signup.html">
-					<button id="signupB">Sign Up</button>
+					<button class="signupB">Sign Up</button>
 				</a>
 
 			</div>
-
 		</div>
 	</header>
-
+	
 	<nav>
 		<div id="sidenav" class="sidenav">
 			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-			<a href="#">Home</a>
+			<a href="index.html">Home</a>
 			<a href="#">Discover&nbsp;Spaces</a>
 			<a href="#">Saved&nbsp;Spaces</a>
 			<a href="#">About</a>
 		</div>
 	</nav>
-
+	
 	<main>
 		<div class="centered-section">
 			<h2>Filters</h2>
 		</div>
-
+		
 		<div class="centered-section">
 			<h2>Study Spaces</h2>
 			<table class="space-table">
@@ -79,5 +73,4 @@
 		</div>
 	</main>
 </body>
-
 </html>
