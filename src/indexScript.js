@@ -18,7 +18,7 @@ if (userId) {
     // const userName = TODO: Query database for user name.
 
 
-    loggedInText.innerHTML = "Logged in as: ";
+    loggedInText.innerHTML = "Logged in as: " + userId;
     // loggedInText.innerHTML = "Logged in as: " + userName;
 }
 
