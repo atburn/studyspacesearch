@@ -1,75 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Space Study Search - Login</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Amaranth:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-    </style>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Amaranth:ital,wght@0,400;0,700;1,400;1,700&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
-    </style>
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Amaranth:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+	</style>
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Amaranth:ital,wght@0,400;0,700;1,400;1,700&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+	</style>
 
     <script defer src="Auth.js"></script>
     <script defer src="loginScript.js"></script>
+	<script>
+		function openNav() {
+		  document.getElementById("sidenav").style.width = "20em";
+		}
 
-
+		function closeNav() {
+		  document.getElementById("sidenav").style.width = "0";
+		}
+	</script>
 </head>
-
 <body>
+	<header>
+		<div id="hamburger-icon" onclick="openNav()">&#8801;</div>
 
-    <header>
+		<a href="./index.html" id="logoTitle" style="text-decoration: none;">
+			<img src="images/SSSHeaderLogo.png" width="130" , height="120">
+			<h1>Space Study Search</h1>
+		</a>
 
-        <div id="hamburger-icon" onclick="openNav()">&#8801;</div>
+		<div id="logButtons">
+			<a href="./login.html">
+				<button class="loginB" id="loginB">Log In</button>
+			</a>
 
-        <a href="./index.html" id="logoTitle">
-            <img src="images/SSSHeaderLogo.png" width="130" , height="120">
-            <h1>Space Study Search</h1>
-        </a>
-
-
-        <div id="logButtons">
-            <a href="./login.html">
-                <button id="loginB">Log In</button>
-            </a>
-
-            <a href="./signup.html">
-                <button id="signupB">Sign Up</button>
-            </a>
-
-        </div>
-    </header>
-
-    <nav>
-        <div id="sidenav" class="sidenav">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <a href="#">Home</a>
-            <a href="#">Discover&nbsp;Spaces</a>
-            <a href="#">Saved&nbsp;Spaces</a>
-            <a href="#">About</a>
-        </div>
-    </nav>
-
-    <main>
-
-        <!-- Yes, I know this looks really bad. I just needed it functional - Aaron -->
-
-        <div style="display: flex; justify-content: center; background-color: wheat;">
-            <form>
-                <label>Email: </label>
-                <input type="email" id="emailField" required />
-                <br />
-                <label>Password: </label>
-                <input type="password" id="passwordField" required />
-                <br />
-                <button id="loginButton" type="button">Login</button>
-            </form>
-        </div>
-
-    </main>
+			<a href="./signup.html">
+				<button class="signupB" id="signupB">Sign Up</button>
+			</a>
+		</div>
+	</header>
+	
+	<nav>
+		<div id="sidenav" class="sidenav">
+			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+			<a href="index.html">Home</a>
+			<a href="#">Discover&nbsp;Spaces</a>
+			<a href="#">Saved&nbsp;Spaces</a>
+			<a href="#">About</a>
+		</div>
+	</nav>
+	
+	<main>
+		<div class="centered-section">
+			<div class="div-form">
+				<h2 style="color: var(--darkpurple); background-color: var(--gold); padding: 0.5em; margin-top:0;  border-radius: 15px;">Log In</h2>
+				<form>
+					<div style="display: grid; grid-template-columns: auto auto; row-gap: 1em; column-gap: 0.5em; margin-bottom: 1em;">
+						<label for="emailField">Email address:</label>
+						<input type="email" id="emailField" name="emailField" required>
+						
+						<label for="passwordField">Password:</label>
+						<input type="password" id="passwordField" name="passwordField" required>
+					</div>
+				
+				
+				<button class="loginB" id="signUpButton" type="button">Submit</button>
+				</form>
+			</div>
+		</div>
+	</main>
 </body>
-
 </html>
