@@ -89,10 +89,10 @@ async function registerUser(userName, email, password) {
 const EXAMPLE_SIGN_IN_RESPONSE_BODY = {
     displayName: "",
     email: "atburn@uw.edu",
-    idToken: "<long irrelevent string>",
+    idToken: "<long irrelevant string>",
     kind: "identitytoolkit#VerifyPasswordResponse",
     localId: "M8L2A4YtHBQOkV9NODqjo2mmbTJ2", // IMPORTANT
-    refreshToken: "<long irrelevent string>",
+    refreshToken: "<long irrelevant string>",
     registered: true
 }
 
@@ -102,10 +102,10 @@ const EXAMPLE_SIGN_IN_RESPONSE_BODY = {
 const EXAMPLE_SIGN_UP_RESPONSE_BODY = {
     email: "test@test.com",
     expiresIn: "3600",
-    idToken: "<long irrelevent string>",
+    idToken: "<long irrelevant string>",
     kind: "identitytoolkit#SignupNewUserResponse",
     localId: "J8WMcojlpngJhmTYgRaFEqf0Y7f1", // IMPORTANT
-    refreshToken: "<long irrelevent string>"
+    refreshToken: "<long irrelevant string>"
 }
 
 
