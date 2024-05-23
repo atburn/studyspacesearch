@@ -1,6 +1,8 @@
 
 const WEB_API_KEY = 'AIzaSyDQMRSzvVDZyoZxvfDWaKoeX-cfADfamfo'; // This should be fine to leave out? Not 100% sure
 
+console.log(document.cookie)
+document.cookie = "userID=hello;";
 
 
 
@@ -45,6 +47,12 @@ async function signInUser(email, password) {
         })
     });
     const content = await rawResponse.json();
+
+    if (content.error !== undefined) {
+        return null;
+    }
+
+
     return content
 }
 
@@ -57,11 +65,11 @@ async function signInUser(email, password) {
  * @see EXAMPLE_SIGNUP_RESPONSE_BODY
  * @param {*} userName 
  * @param {*} email 
- * @param {*} passsword 
+ * @param {*} password 
  * @returns the response body.
  */
-async function registerUser(userName, email, passsword) {
-    const response = await _registerUserInFirebase(email, passsword);
+async function registerUser(userName, email, password) {
+    const response = await _registerUserInFirebase(email, password);
     if (response.error !== undefined) {
         // Handle different errors here? 
 
@@ -77,7 +85,7 @@ async function registerUser(userName, email, passsword) {
 
     const userId = response.localId;
 
-    const sql = `INSERT INTO USER VALUES (${userId}, ${userName}, "Some hash", "Salt", ${email});`;
+    const sql = `INSERT INTO USER VALUES (${userId}, ${userName}, ${email});`;
     // TODO: Insert into database
 
 
@@ -139,5 +147,36 @@ async function _registerUserInFirebase(email, password) {
 // })
 
 
+function createCookie(name, value, days) {
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        var expires = "; expires=" + date.toGMTString();
+    }
+    else var expires = "";
+    document.cookie = name + "=" + value + expires + ";";
+}
 
+
+const emailField = document.getElementById('emailField');
+const passwordField = document.getElementById('passwordField');
+
+document.getElementById("loginButton").addEventListener('click', async () => {
+    if (emailField.checkValidity() === false) {
+        return;
+    }
+
+    // Don't think we need to check the password field
+
+    const response = await signInUser(emailField.value, passwordField.value);
+    if (response === null) {
+        // Handle incorrect email/password, or no account
+        return;
+    }
+
+    const userID = response.localId;
+
+
+
+});
 
