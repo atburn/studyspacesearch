@@ -25,7 +25,7 @@ CREATE TABLE OWNER(
     PRIMARY KEY(space_id, name),
     FOREIGN KEY(space_id) REFERENCES SPACE(id) ON DELETE CASCADE ON UPDATE CASCADE
 ); CREATE TABLE `USER`(
-    id INT(5) NOT NULL,
+    id VARCHAR(30) NOT NULL,
     username VARCHAR(50) NOT NULL,
     email VARCHAR(254) NOT NULL,
     PRIMARY KEY(id)
@@ -35,13 +35,13 @@ CREATE TABLE OWNER(
     availability INT(1) NOT NULL DEFAULT (1) CHECK (availability > 0 AND availability < 6),
     busyness INT(1) NOT NULL DEFAULT (1) CHECK (busyness > 0 AND busyness < 6),
     user_remark VARCHAR(50) NOT NULL CHECK (CHAR_LENGTH(user_remark) > 0 AND CHAR_LENGTH(user_remark) < 51), 
-    user_id INT(5),
+    user_id VARCHAR(30),
     timestamp VARCHAR(20),
     PRIMARY KEY(space_id, user_id, timestamp),
     FOREIGN KEY(space_id) REFERENCES SPACE(id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY(user_id) REFERENCES `USER`(id) ON DELETE CASCADE ON UPDATE CASCADE
 ); CREATE TABLE SAVED_SPACE(
-    user_id INT(5) NOT NULL,
+    user_id VARCHAR(30) NOT NULL,
     space_id INT(5) NOT NULL,
     PRIMARY KEY(user_id, space_id),
     FOREIGN KEY(user_id) REFERENCES `USER`(id) ON DELETE CASCADE ON UPDATE CASCADE,
