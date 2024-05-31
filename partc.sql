@@ -2,12 +2,12 @@
     -- Purpose: Returns a table of the most user-relevent information of each space.
     -- Expected: A table containing details for each space
 SELECT
-    space.id,
-    space.name,
-    space.address,
-    space.building,
-    space.room,
-    space.hours,
+    SPACE.id,
+    SPACE.name,
+    SPACE.address,
+    SPACE.building,
+    SPACE.room,
+    SPACE.hours,
     concat_resources.resources,
     owner_info.owner_id,
     owner_info.owner_name,
@@ -21,12 +21,12 @@ JOIN(
         space_id,
         GROUP_CONCAT(NAME) AS resources
     FROM
-        space_resource
+        SPACE_RESOURCE
     GROUP BY
         space_id
 ) AS concat_resources
 ON
-    concat_resources.space_id = space.id
+    concat_resources.space_id = SPACE.id
 JOIN(
     SELECT OWNER.id AS owner_id,
         OWNER.name AS owner_name,
@@ -36,7 +36,7 @@ JOIN(
     FROM OWNER
 ) AS owner_info
 ON
-    owner_info.owner_id = space.id;
+    owner_info.owner_id = SPACE.id;
 
 -- SQL Query 2: Uses nested queries with the IN, ANY or ALL operator and uses a GROUP BY clause
     -- Purpose: Get the space owned by UW Tacoma that users have saved the most. This result could
@@ -170,10 +170,10 @@ WHERE
     --      May be useful from an admin perspective
     -- Expected: A table containing details about each user (excluding sensitive information), including reserved spaces 
 SELECT
-    user.id,
-    user.username,
-    user.email,
-    saved_space.saved
+    USER.id,
+    USER.username,
+    USER.email,
+    SAVED_SPACE.saved
 FROM
     USER
 JOIN(
@@ -181,12 +181,12 @@ JOIN(
         user_id,
         GROUP_CONCAT(space_id) AS saved
     FROM
-        saved_space
+        SAVED_SPACE
     GROUP BY
         user_id
-) AS saved_space
+) AS SAVED_SPACE
 ON
-    saved_space.user_id = user.id;
+    SAVED_SPACE.user_id = USER.id;
 
 -- SQL Query 7: Create your own non-trivial SQL query (must use at least two tables in FROM clause)
     -- Purpose: Returns a table of all owners and the buildings they own, if any
@@ -202,16 +202,16 @@ FROM
     OWNER
 LEFT JOIN(
     SELECT
-        space.owner_id AS space_owner,
-        GROUP_CONCAT(space.id) AS owned_spaces
+        SPACE.owner_id AS space_owner,
+        GROUP_CONCAT(SPACE.id) AS owned_spaces
     FROM
         SPACE
     JOIN 
         OWNER 
     ON 
-            OWNER.id = space.owner_id
+            OWNER.id = SPACE.owner_id
     GROUP BY
-        space.owner_id
+        SPACE.owner_id
     ) AS spaces
 ON
     spaces.space_owner = OWNER.id;
@@ -220,26 +220,26 @@ ON
     -- Purpose: Return a table of all spaces and their most recent comment
     -- Expected: A table containing details about spaces and their most recent comment, if any
 SELECT
-    space.*,
+    SPACE.*,
     recent_comments.*
 FROM(
     SELECT
-        user_comment.space_id AS space_id,
-        user_comment.noise,
-        user_comment.availability,
-        user_comment.busyness,
-        user_comment.user_remark,
-        user_comment.user_id,
-        MAX(user_comment.timestamp) AS recent_comment
+        USER_COMMENT.space_id AS space_id,
+        USER_COMMENT.noise,
+        USER_COMMENT.availability,
+        USER_COMMENT.busyness,
+        USER_COMMENT.user_remark,
+        USER_COMMENT.user_id,
+        MAX(USER_COMMENT.timestamp) AS recent_comment
     FROM
-        user_comment
+        USER_COMMENT
     GROUP BY
-        user_comment.space_id
+        USER_COMMENT.space_id
     ) AS recent_comments
 RIGHT JOIN 
     SPACE 
 ON 
-    space.id = recent_comments.space_id;
+    SPACE.id = recent_comments.space_id;
 
 -- SQL Query 9: Create your own non-trivial SQL query (must use at least three tables in FROM clause)
     -- Purpose: Retrieve all owners with a space that has a higher than average number of comments
