@@ -11,7 +11,7 @@ CREATE TABLE OWNER(
     id INT(5) NOT NULL,
     name VARCHAR(100) NOT NULL,
     address VARCHAR(100) NOT NULL,
-    building VARCHAR(50) NOT NULL,
+    building VARCHAR(50),
     room VARCHAR(50),
     owner_id INT(5) NOT NULL,
     type VARCHAR(50) NOT NULL,
@@ -73,16 +73,16 @@ INSERT INTO SPACE VALUES
 (10, 'CP 3A', '1922 Pacific Avenue, Tacoma, WA 98402', 'Cherry Parkes', '3A', 1, 'Reservable Study Space', 'https://25live.collegenet.com/25live/data/washington/run/image?image_id=948', '8:00 AM - 5:00 PM Monday - Friday<br />Closed Saturday - Sunday');
 
 INSERT INTO USER VALUES
-(1, 'user', 'user@email.com'),
-(2, 'aaron', 'atburn@uw.edu'),
-(3, 'megumi', 'minven@uw.edu'),
-(4, 'trae', 'tclaar@uw.edu'),
-(5, 'bob', 'bob@email.com'),
-(6, 'user2', 'some@email.com'),
-(7, 'user3', 'some-other@email.com'),
-(8, 'user4', 'user4@email.com'),
-(9, 'another_user', 'another@email.com'),
-(10, 'user5', 'ok@email.com');
+('0whmOjCjT5R3CUq61J51N1mOl003', 'Test User 2', 'testuser2@email.com'),
+('1Gc4H5XAO3R9wbsp4KZyzPZJL3W2', 'Aaron Burnham', 'atburn@uw.edu'),
+('61SAzxpkMmhNOf06mr65V9DNwt73', 'Test User 5', 'testuser5@email.com'),
+('9OUkd99Ev3TXTlgb28z7QoWdmE82', 'Test User 1', 'testuser1@email.com'),
+('aQ8XPxXJBLN9GgLKWtMD65Xfhjc2', 'Test User 7', 'testuser7@email.com'),
+('Bc4JZ0hANRal0JCRWYn8W1g1WIF2', 'Test User 8', 'testuser8@email.com'),
+('fYxIQVccjwenypNgRf4DkgqBtMx2', 'Test User 3', 'testuser3@email.com'),
+('jXegKJEc7qZMYJYzq2SXVSCpf972', 'Test User 4', 'testuser4@email.com'),
+('RXOmvOxBZMdnN516cXT2DZgfaGx1', 'Test User 6', 'testuser6@email.com'),
+('xYrnvwj0MkVMfN63Bxi4teDvYww1', 'Trae Claar', 'tclaar@uw.edu');
 
 INSERT INTO SPACE_RESOURCE VALUES
 (1, 'Microwave'),
@@ -98,25 +98,25 @@ INSERT INTO SPACE_RESOURCE VALUES
 (9, 'Whiteboard');
 
 INSERT INTO USER_COMMENT VALUES
-(1, 2, 5, 1, 'pretty nice', 4, '2024-04-11T14:11'),
-(1, 3, 3, 2, 'comment', 8, '2024-04-19T10:46'),
-(4, 1, 5, 1, 'lovely', 5, '2024-03-05T01:32'),
-(8, 4, 3, 2, 'it was loud', 6, '2024-02-26T13:23'),
-(10, 3, 1, 4, 'ok', 1, '2023-12-15T07:48'),
-(7, 3, 1, 5,'someone else was there', 7, '2023-05-30T14:34'),
-(1, 2, 1, 3, 'no comment', 6, '2024-03-12T09:17'),
-(5, 1, 5, 1, 'sick', 10, '2024-01-20T16:02'),
-(9, 1, 2, 4, 'I have nothing to say', 9, '2023-01-26T11:30'),
-(2, 3, 5, 1, 'hello world', 7, '2024-02-29T12:15');
+(2, 2, 2, 4, 'Sells coffee.', '1Gc4H5XAO3R9wbsp4KZyzPZJL3W2', '2024-04-30T03:01'),
+(2, 3, 5, 1, 'hello world', 'jXegKJEc7qZMYJYzq2SXVSCpf972', '2024-02-29T12:15'),
+(4, 1, 5, 1, 'lovely', 'jXegKJEc7qZMYJYzq2SXVSCpf972', '2024-03-05T01:32'),
+(4, 4, 5, 2, 'Kind of loud (near roads). Nice place for reading.', 'RXOmvOxBZMdnN516cXT2DZgfaGx1', '2024-05-28T16:09'),
+(5, 1, 5, 1, 'sick', 'Bc4JZ0hANRal0JCRWYn8W1g1WIF2', '2024-01-20T16:02'),
+(7, 3, 1, 5, 'someone else was there', 'Bc4JZ0hANRal0JCRWYn8W1g1WIF2', '2023-05-30T14:34'),
+(8, 4, 3, 2, 'it was loud', 'jXegKJEc7qZMYJYzq2SXVSCpf972', '2024-02-26T13:23'),
+(9, 1, 2, 4, 'I have nothing to say', 'jXegKJEc7qZMYJYzq2SXVSCpf972', '2023-01-26T11:30'),
+(9, 1, 4, 1, 'A great place for group projects', 'RXOmvOxBZMdnN516cXT2DZgfaGx1', '2024-05-18T10:33'),
+(10, 2, 2, 4, 'Small, quiet room', '1Gc4H5XAO3R9wbsp4KZyzPZJL3W2', '2024-05-28T03:02');
 
 INSERT INTO SAVED_SPACE VALUES
-(4, 1),
-(4, 9), 
-(1, 6),
-(1, 3),
-(1, 8),
-(8, 3),
-(9, 7),
-(5, 2),
-(5, 7),
-(10, 3);
+('xYrnvwj0MkVMfN63Bxi4teDvYww1', 1),
+('0whmOjCjT5R3CUq61J51N1mOl003', 2), 
+('1Gc4H5XAO3R9wbsp4KZyzPZJL3W2', 2),
+('61SAzxpkMmhNOf06mr65V9DNwt73', 3),
+('Bc4JZ0hANRal0JCRWYn8W1g1WIF2', 3),
+('RXOmvOxBZMdnN516cXT2DZgfaGx1', 3),
+('1Gc4H5XAO3R9wbsp4KZyzPZJL3W2', 4),
+('9OUkd99Ev3TXTlgb28z7QoWdmE82', 6),
+('Bc4JZ0hANRal0JCRWYn8W1g1WIF2', 7),
+('jXegKJEc7qZMYJYzq2SXVSCpf972', 7);
