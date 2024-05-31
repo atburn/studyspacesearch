@@ -1,0 +1,41 @@
+DBMS:
+    URL: http://<IP ADDRESS>/phpMyAdmin
+    Username: root
+    Password: wU.Wueu3LwEJ
+
+
+Frontend URLs:
+    Home Page: 
+        http://34.83.63.117/studyspacesearch/
+        http://34.83.63.117/studyspacesearch/index.html
+
+
+    Discover: 
+        http://34.83.63.117/studyspacesearch/discover.php
+
+
+    Recommended Spaces:
+        http://34.83.63.117/recommended.php
+
+
+    Login:
+        http://34.83.63.117/login.html
+
+
+    Signup:
+        http://34.83.63.117/signup.html
+
+
+    Saved Spaces (Requires you to be logged in):
+        http://34.83.63.117/studyspacesearch/savedSpaces.html    
+
+
+    Recent Activity:
+        http://34.83.63.117/studyspacesearch/recentActivity.html
+
+
+
+    
+
+
+    
