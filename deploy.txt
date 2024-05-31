@@ -1,5 +1,5 @@
 DBMS:
-    URL: http://<IP ADDRESS>/phpMyAdmin
+    URL: http://34.83.63.117/phpMyAdmin
     Username: root
     Password: wU.Wueu3LwEJ
 
