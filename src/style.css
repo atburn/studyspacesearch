@@ -1,5 +1,7 @@
 :root {
 	--gold: rgb(243, 224, 157);
+    --sand: rgb(255, 248, 222);
+    --offwhite: rgb(255, 253, 244);
 	--darkpurple: rgb(68, 54, 94);
 	--lightpurple: rgb(189, 181, 205);
 	--blue: rgb(59, 134, 159);
@@ -22,6 +24,7 @@
 body {
 	margin: 0 auto;
 	padding: 0;
+    padding-bottom: 1em;
 	background-color: var(--darkpurple);
 	font-family: "Raleway", sans-serif;
 }
@@ -101,6 +104,10 @@ header #logButtons {
 	border-radius: 5px;
 }
 
+.loginB, .signUpB > a:-webkit-any-link {
+    text-decoration: none;
+}
+
 .loginB {
 	margin: 0px 10px 0px 10px;
 	padding: 5px;
@@ -113,14 +120,10 @@ header #logButtons {
 	transition: 0.1s;
 }
 
-.loginB:hover, .signupB:hover{
-	transform: scale(1.2);
-	cursor: pointer;
+.loginB:active {
+    background-color: white;
 }
 
-.loginB:active {
-	background-color: white;
-}
 
 .signupB {
 	margin: 0px 10px 0px 10px;
@@ -131,11 +134,17 @@ header #logButtons {
 	border-radius: 10px;
 	font-size: 1.3em;
 	font-family: "Amaranth", sans-serif;
+    transition: 0.1s;
 }
 
 .signupB:active {
-	background-color: var(--lightblue);
-	color: var(--blue);
+    background-color: var(--lightblue);
+    color: var(--blue);
+}
+
+.loginB:hover, .signupB:hover{
+    transform: scale(1.2);
+    cursor: pointer;
 }
 
 main {
@@ -169,4 +178,63 @@ form {
 input{
 	padding: 0.2em;
 	width: 20em;
+}
+
+#filter-search-b {
+    margin: 0px 10px 0px 10px;
+    padding: 5px;
+    background-color: white;
+    color: var(--darkpurple);
+    border: 2px solid var(--darkpurple);
+    border-radius: 10px;
+    font-size: 1.3em;
+    font-family: "Amaranth", sans-serif;
+    transition: 0.1s;
+}
+
+#filter-search-b:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+#filter-search-b:active {
+    background-color: var(--darkpurple);
+    color: white;
+}
+
+space-table {
+
+}
+
+.title-secondary {
+    color: var(--gold);
+}
+
+.text-secondary {
+    color: white;
+}
+
+.contact-card {
+    text-align: center;
+    background-color: white;
+    padding-left: 45px;
+    padding-right: 45px;
+}
+
+
+th {
+    background-color: var(--lightpurple);
+}
+tr:nth-child(even) {
+    background-color: var(--offwhite);
+}
+
+tr:nth-child(odd) {
+    background-color: var(--sand);
+}
+
+
+
+td {
+    padding: 5px;
 }

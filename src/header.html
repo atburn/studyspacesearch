@@ -1,0 +1,72 @@
+<div>
+    <script>
+        function openNav() {
+            document.getElementById("sidenav").style.width = "20em";
+        }
+
+        function closeNav() {
+            document.getElementById("sidenav").style.width = "0";
+        }
+
+
+        // ------------------------------ Header -------------------------
+        const userId = window.sessionStorage.getItem('userId');
+        const userName = window.sessionStorage.getItem('userName');
+
+        console.log(userId)
+
+        document.getElementById('signOutButton').addEventListener('click', () => {
+            window.sessionStorage.removeItem('userId');
+            window.sessionStorage.removeItem('userName');
+            window.location.reload();
+        });
+
+        // If the user is already signed in, show "Logged in as:" instead of login/signup buttons
+        document.getElementById(userId !== null ? 'notSignedInButtons' : "signedInButtons").hidden = true;
+
+        // Display logged in text.
+        if (userId) {
+            const loggedInText = document.getElementById('loggedInAsText');
+            loggedInText.innerHTML = "Logged in as: " + (userName ? userName : userId);
+        }
+        // -----------------------------------------------------------
+    </script>
+
+    <header>
+        <div id="hamburger-icon" onclick="openNav()">&#8801;</div>
+
+        <a href="./index.html" id="logoTitle" style="text-decoration: none;">
+            <img src="images/SSSHeaderLogo.png" width="130" , height="120">
+            <h1>Space Study Search</h1>
+        </a>
+        <div id="logButtons">
+            <div id="signedInButtons">
+                <p id="loggedInAsText" style='display: inline-block'>Logged in as: </p>
+                <button id="signOutButton"  class='loginB'>Sign Out</button>
+            </div>
+
+            <div id="notSignedInButtons">
+                <a style='text-decoration: none;' href="./login.html">
+                    <button class="loginB">Log In</button>
+                </a>
+
+                <a style='text-decoration: none;' href="./signup.html">
+                    <button class="signupB">Sign Up</button>
+                </a>
+
+            </div>
+        </div>
+    </header>
+    <nav>
+        <div id="sidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="index.html">Home</a>
+            <a href="discover.php">Discover&nbsp;Spaces</a>
+            <a href="recommended.php">Recommended&nbsp;Spaces</a>
+            <a href="savedSpaces.html">Saved&nbsp;Spaces</a>
+            <a href="recentActivity.html">Recent&nbsp;Activity</a>
+        </div>
+    </nav>
+</div>
+
+

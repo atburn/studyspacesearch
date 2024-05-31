@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,72 +6,90 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Space Study Search</title>
     <link rel="stylesheet" href="style.css">
-	<style>
-		@import url('https://fonts.googleapis.com/css2?family=Amaranth:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-	</style>
-	<style>
-		@import url('https://fonts.googleapis.com/css2?family=Amaranth:ital,wght@0,400;0,700;1,400;1,700&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
-	</style>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Amaranth:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+    </style>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Amaranth:ital,wght@0,400;0,700;1,400;1,700&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+    </style>
 
-    <script defer src="indexScript.js"></script>
-	<script>
-		function openNav() {
-		  document.getElementById("sidenav").style.width = "20em";
-		}
+    <script defer src="discoverScript.js" type="module"></script>
 
-		function closeNav() {
-		  document.getElementById("sidenav").style.width = "0";
-		}
-	</script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+        $(function () {
+            $("#header").load("header.html");
+        });
+    </script>
+
 </head>
 <body>
-	<header>
-		<div id="hamburger-icon" onclick="openNav()">&#8801;</div>
+    <div id="header"></div>
 
-		<a href="./index.html" id="logoTitle" style="text-decoration: none;">
-			<img src="images/SSSHeaderLogo.png" width="130" , height="120">
-			<h1>Space Study Search</h1>
-		</a>
+    <main>
+        <h1 class="title-secondary">
+            Welcome!
+        </h1>
+        <p class="text-secondary">
+            Study Space Search is a powerful application for finding study spaces designed by students, 
+            for students. A variety of useful and versatile database-driven tools are provided for finding 
+            just the right study space for any specific set of needs. 
+            <br/><br/>
+            In addition to Study Space Search's capable filtering and search features, real-time comments with 
+            specific ratings for important room characteristics, as well as a feature for saving spaces, allow 
+            the community to curate the information available to Study Space Search's users dynamically.
+            <br/><br/>
+            So, need a quiet, reservable space equipped with a whiteboard for a team meeting? How about a room 
+            with plenty of space on campus that also has a microwave so you can warm up your lunch? 
+            <br/><br/>
+            Study Space Search has you covered.
+        </p>
+        <a href="./discover.php" style="width: 100 px; margin: 50px auto">
+            <button class="loginB" >
+                Get Started
+            </button>
+        </a>
 
-		<div id="logButtons">
-			<div id="signedInButtons">
-				<p id="loggedInAsText">Logged in as: </p>
-				<button id="signOutButton">Sign Out</button>
-			</div>
+        <div class="centered-section">
+            <h2 style="text-align: center">Contact Us</h2>
+            <div style='display: flex; justify-content: center;'>
+                <div class="contact-card">
+                    <h4>Aaron Burnham</h4>
+                    <a href="atburn@uw.edu">atburn@uw.edu</a>
+                </div>
+                <div class="contact-card">
+                    <h4>Trae Claar</h4>
+                    <a href="tclaar@uw.edu">tclaar@uw.edu</a>
+                </div>
+                <div class="contact-card">
+                    <h4>Megumi Invencion</h4>
+                    <a href="minven@uw.edu">minven@uw.edu</a>
+                </div>
 
-			<div id="notSignedInButtons">
-				<a href="./login.html">
-					<button class="loginB">Log In</button>
-				</a>
+            </div>
 
-				<a href="./signup.html">
-					<button class="signupB">Sign Up</button>
-				</a>
+            
+            <!--
+            <table style="width: 100%">
+                <tr>
+                    <td class="contact-card">
+                        <h4>Aaron Burnham</h4>
+                        <a href="atburn@uw.edu">atburn@uw.edu</a>
+                    </td>
+                    <td class="contact-card">
+                        <h4>Trae Claar</h4>
+                        <a href="tclaar@uw.edu">tclaar@uw.edu</a>
+                    </td>
+                    <td class="contact-card">
+                        <h4>Megumi Invencion</h4>
+                        <a href="minven@uw.edu">minven@uw.edu</a>
+                    </td>
+                </tr>
+            </table>
+            -->
 
-			</div>
-		</div>
-	</header>
-	
-	<nav>
-		<div id="sidenav" class="sidenav">
-			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-			<a href="index.html">Home</a>
-			<a href="#">Discover&nbsp;Spaces</a>
-			<a href="#">Saved&nbsp;Spaces</a>
-			<a href="#">About</a>
-		</div>
-	</nav>
-	
-	<main>
-		<div class="centered-section">
-			<h2>Filters</h2>
-		</div>
-		
-		<div class="centered-section">
-			<h2>Study Spaces</h2>
-			<table class="space-table">
-			</table>
-		</div>
+        </div>
 	</main>
+
 </body>
 </html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Space Study Search - Recent Activities</title>
+        <link rel="stylesheet" href="style.css">
+
+
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Amaranth:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+        </style>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Amaranth:ital,wght@0,400;0,700;1,400;1,700&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+        </style>
+
+
+        <script defer src="recentActivity.js" type='module'></script>    
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script>
+            $(function () {
+                $("#header").load("header.html");
+            });
+        </script>
+
+
+    </head>
+    <body>
+
+        <div id="header"></div>
+
+
+        <main>
+            <div class="centered-section">
+                <select id='period-selector'>
+                    <option value="today">Today</option>
+                    <option value="week">Within a Week</option>
+                    <option value="month">Within a Month</option>
+                    <option value="all">All-Time</option>
+                </select>
+                <div id="recent-activity-area">
+
+                </div>
+
+
+            </div>
+        </main>
+
+    </body>
+</html>

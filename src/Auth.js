@@ -1,3 +1,5 @@
+
+import { executeSQL } from "./DatabaseHandler.js"
 /*
     Helper class for auth stuff.
 */
@@ -16,7 +18,7 @@ const WEB_API_KEY = 'AIzaSyDQMRSzvVDZyoZxvfDWaKoeX-cfADfamfo'; // This should be
  * @param {*} password 
  * @returns A response body.
  */
-async function signInUser(email, password) {
+export async function signInUser(email, password) {
     const loginEndpoint = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${WEB_API_KEY}`;
     const rawResponse = await fetch(loginEndpoint, {
         method: 'POST',
@@ -35,8 +37,7 @@ async function signInUser(email, password) {
     if (content.error !== undefined) {
         return null;
     }
-
-
+    
     return content
 }
 
@@ -54,7 +55,7 @@ async function signInUser(email, password) {
  * @param {*} password 
  * @returns the response body.
  */
-async function registerUser(userName, email, password) {
+export async function registerUser(userName, email, password) {
     const response = await _registerUserInFirebase(email, password);
     if (response.error !== undefined) {
         // Handle different errors here? 
@@ -70,8 +71,13 @@ async function registerUser(userName, email, password) {
 
     const userId = response.localId;
 
-    const sql = `INSERT INTO USER VALUES (${userId}, ${userName}, ${email});`;
-    // TODO: Insert into database
+    const sql = `INSERT INTO USER VALUES ('${userId}', '${userName}', '${email}');`;
+
+    const sqlResponse = await executeSQL(sql)
+
+    console.log(sqlResponse)
+
+
 
 
     return response // or something

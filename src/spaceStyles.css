@@ -1,0 +1,41 @@
+.comment {
+    border: 1px solid #E0E0E0;
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+}
+
+.comment p, h3 {
+    margin: 0;
+    padding: 0;
+}
+
+.comment-rating {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.comment-rating > div {
+    text-align: center;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+
+.comment-rating > div > h4, p {
+    margin: 0;
+    padding: 0;
+}
+
+.hidden {
+    display: none !important; 
+}
+
+
+#comment-area {
+    display: flex; 
+    flex-direction: column;
+}
