@@ -43,50 +43,50 @@ ON
     --    be used to help recommend users the "most favorited" UWT space.
     -- Expected: One tuple describing the UW Tacoma study space that has been saved by users the most. It 
     --    includes space details (image, name, address, building, room) and the number of times it has been saved.
-SELECT
-    SPACE.image 'Image',
-    SPACE.name 'Space Name',
-    SPACE.address 'Address',
-    SPACE.building 'Building',
-    SPACE.room 'Room',
-    MAX(sum_list.total_times_saved) 'Total Times Saved by Users'
-FROM(
-    SELECT
-        COUNT(*) AS total_times_saved
-    FROM
-        SAVED_SPACE
-    JOIN(
-        SELECT
-            SPACE.name,
-            SPACE.id
-        FROM
-            SPACE
+SELECT 
+    s.id,
+    s.image 'Image',
+    s.name 'Space Name',
+    s.address 'Address',
+    s.building 'Building',
+    s.room 'Room', 
+    COUNT(ss.user_id) AS 'Total Times Saved by Users'
+FROM 
+    SPACE s
+JOIN
+    SAVED_SPACE ss
+ON
+    s.id = ss.space_id
+WHERE 
+    s.owner_id 
+IN (
+    SELECT id 
+    FROM OWNER
+    WHERE id = 1
+)
+GROUP BY
+    s.id
+HAVING COUNT(ss.user_id) = (
+    SELECT MAX(save_count)
+    FROM (
+        SELECT 
+	    COUNT(ss.user_id) AS save_count
+        FROM 
+	    SPACE s
         JOIN 
-            OWNER 
-        ON 
-            SPACE.owner_id = OWNER.id
+	    SAVED_SPACE ss 
+	ON 
+	    s.id = ss.space_id
         WHERE 
-            OWNER.name = 'UW Tacoma'
-        ) AS UWlist
-    ON
-        SAVED_SPACE.space_id = UWlist.id
-    GROUP BY
-        SAVED_SPACE.space_id
-    ) AS sum_list,
-    SPACE
-WHERE
-    SPACE.id IN(
-        SELECT
-            SPACE.id
-        FROM
-            SPACE
-        JOIN 
-            OWNER 
-        ON 
-            SPACE.owner_id = OWNER.id
-        WHERE 
-            OWNER.name = 'UW Tacoma'
-    );
+	    s.owner_id 
+	IN (
+	    SELECT id 
+	    FROM OWNER 
+	    WHERE id = 1
+	)
+        GROUP BY s.id
+    ) AS max_saved_count
+);
 
 -- SQL Query 3: A correlated nested query with proper aliasing applied
     -- Purpose: Lists the spaces that have a Whiteboard resource.
