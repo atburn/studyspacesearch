@@ -93,11 +93,7 @@ HAVING COUNT(ss.user_id) = (
     -- Expected: A table of spaces that have a whiteboard. It includes the space's image, name,
     --    address, building, and room.
 SELECT
-    SP.image "Image",
-    SP.name "Space Name",
-    SP.address "Address",
-    SP.building "Building",
-    SP.room "Room"
+    *
 FROM
     SPACE AS SP
 WHERE
